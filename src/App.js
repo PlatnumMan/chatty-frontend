@@ -1,6 +1,6 @@
+import '@root/App.scss';
+import { AppRouter } from '@root/routes';
 import { BrowserRouter } from 'react-router-dom';
-import './App.scss';
-import { AppRouter } from './routes';
 
 const App = () => {
   return (

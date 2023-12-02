@@ -1,11 +1,11 @@
+import backgroundImage from '@assets/images/background.jpg';
+import Button from '@components/button/Button';
+import Input from '@components/input/Input';
+import '@pages/auth/forgot-password/ForgotPassword.scss';
+import { authService } from '@services/api/auth/auth.service';
 import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import backgroundImage from '../../../assets/images/background.jpg';
-import Button from '../../../components/button/Button';
-import Input from '../../../components/input/Input';
-import { authService } from '../../../services/api/auth/auth.service';
-import './ForgotPassword.scss';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
