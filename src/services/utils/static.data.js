@@ -1,13 +1,3 @@
-import blessed from '@assets/feelings/blessed.jpg';
-import excited from '@assets/feelings/excited.jpg';
-import happy from '@assets/feelings/happy.jpg';
-import loved from '@assets/feelings/loved.jpg';
-import angry from '@assets/reactions/angry.png';
-import happyReaction from '@assets/reactions/happy.png';
-import like from '@assets/reactions/like.png';
-import love from '@assets/reactions/love.png';
-import sad from '@assets/reactions/sad.png';
-import wow from '@assets/reactions/wow.png';
 import {
   FaBirthdayCake,
   FaComments,
@@ -24,6 +14,16 @@ import {
   FaUserPlus,
   FaUsers
 } from 'react-icons/fa';
+import blessed from '../../assets/feelings/blessed.jpg';
+import excited from '../../assets/feelings/excited.jpg';
+import happy from '../../assets/feelings/happy.jpg';
+import loved from '../../assets/feelings/loved.jpg';
+import angry from '../../assets/reactions/angry.png';
+import happyReaction from '../../assets/reactions/happy.png';
+import like from '../../assets/reactions/like.png';
+import love from '../../assets/reactions/love.png';
+import sad from '../../assets/reactions/sad.png';
+import wow from '../../assets/reactions/wow.png';
 
 export const sideBarItems = [
   {
