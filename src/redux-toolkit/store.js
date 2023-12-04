@@ -1,3 +1,4 @@
+import notificationReducer from '@redux/reducers/notifications/notification.reducer';
 import suggestionsReducer from '@redux/reducers/suggestions/suggestions.reducer';
 import userReducer from '@redux/reducers/user/user.reducer';
 import { configureStore } from '@reduxjs/toolkit';
@@ -5,6 +6,7 @@ import { configureStore } from '@reduxjs/toolkit';
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    suggestions: suggestionsReducer
+    suggestions: suggestionsReducer,
+    notifications: notificationReducer
   }
 });
