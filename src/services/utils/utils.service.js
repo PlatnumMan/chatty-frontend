@@ -1,7 +1,7 @@
 import { addNotification, clearNotification } from '@redux/reducers/notifications/notification.reducer';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 import { avatarColors } from '@services/utils/static.data';
-import { floor, random } from 'lodash';
+import { floor, random, some } from 'lodash';
 
 export class Utils {
   static avatarColor() {
@@ -87,5 +87,13 @@ export class Utils {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  static checkIfUserIsBlocked(blocked, userId) {
+    return some(blocked, (id) => id === userId);
+  }
+
+  static checkIfUserIsFollowed(userFollowers, postCreatorId, userId) {
+    return some(userFollowers, (user) => user._id === postCreatorId || postCreatorId === userId);
   }
 }

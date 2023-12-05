@@ -114,17 +114,17 @@ export const fontAwesomeIcons = {
 export const privacyList = [
   {
     topText: 'Public',
-    subText: 'Anyone on can see this',
+    subText: 'Anyone on Chatty',
     icon: <FaGlobe className="globe-icon globe" />
   },
   {
     topText: 'Followers',
-    subText: 'Only people who follow you can see this',
+    subText: 'Your Followers On Chatty',
     icon: <FaUserCheck className="globe-icon globe" />
   },
   {
     topText: 'Private',
-    subText: 'For you only',
+    subText: 'For You Only',
     icon: <FaLock className="globe-icon globe" />
   }
 ];

@@ -1,3 +1,5 @@
+import PostFormSkeleton from '@components/posts/post-form/PostFormSkeleton';
+import PostSkeleton from '@components/posts/post/PostSkeleton';
 import SuggestionsSkeletons from '@components/suggestions/SuggestionsSkeleton';
 
 const StreamsSkeleton = () => {
@@ -5,9 +7,11 @@ const StreamsSkeleton = () => {
     <div className="streams">
       <div className="streams-content">
         <div className="streams-post">
-          <div>Posts Form</div>
+          <PostFormSkeleton />
           {[1, 2, 3, 4, 5, 6].map((index) => (
-            <div key={index}>Post Items</div>
+            <div key={index}>
+              <PostSkeleton />
+            </div>
           ))}
         </div>
         <div className="streams-suggestions">
