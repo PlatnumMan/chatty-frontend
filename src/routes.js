@@ -1,3 +1,4 @@
+import CardSkeleton from '@components/card-element/CardSkeleton';
 import ProtoctedRoute from '@pages/ProtoctedRoute';
 import { AuthTabs, ForgotPassword, ResetPassword } from '@pages/auth';
 import Error from '@pages/error/Error';
@@ -41,7 +42,7 @@ export const AppRouter = () => {
         {
           path: 'streams',
           element: (
-            <Suspense fallback={StreamsSkeleton}>
+            <Suspense fallback={<StreamsSkeleton />}>
               <Streams />
             </Suspense>
           )
@@ -57,7 +58,7 @@ export const AppRouter = () => {
         {
           path: 'people',
           element: (
-            <Suspense>
+            <Suspense fallback={<CardSkeleton />}>
               <People />
             </Suspense>
           )
@@ -89,7 +90,7 @@ export const AppRouter = () => {
         {
           path: 'notifications',
           element: (
-            <Suspense fallback={NotificationSkeleton}>
+            <Suspense fallback={<NotificationSkeleton />}>
               <Notifications />
             </Suspense>
           )

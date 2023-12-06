@@ -1,8 +1,9 @@
-import '@components/sidebar/Sidebar.scss';
 import { fontAwesomeIcons, sideBarItems } from '@services/utils/static.data';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
+
+import '@components/sidebar/Sidebar.scss';
 
 const Sidebar = () => {
   const { profile } = useSelector((state) => state.user);
