@@ -91,7 +91,7 @@ const Notification = () => {
               <div
                 className="notification-box"
                 data-testid="notification-box"
-                key={index}
+                key={notification?._id}
                 onClick={() => markAsRead(notification)}
               >
                 <div className="notification-box-sub-card">

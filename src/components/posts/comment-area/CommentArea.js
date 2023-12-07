@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const CommentArea = ({ post }) => {
   const { profile } = useSelector((state) => state.user);
   let { reactions } = useSelector((state) => state.userPostReactions);
-  const [userSelectedReaction, setUserSelectedReaction] = useState('');
+  const [userSelectedReaction, setUserSelectedReaction] = useState('like');
   const selectedPostId = useLocalStorage('selectedPostId', 'get');
   const [setSelectedPostId] = useLocalStorage('selectedPostId', 'set');
   const dispatch = useDispatch();

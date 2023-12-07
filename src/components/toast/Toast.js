@@ -40,9 +40,9 @@ const Toast = (props) => {
 
   return (
     <div className={`toast-notification-container ${position}`}>
-      {list.map((toast, index) => (
+      {list.map((toast) => (
         <div
-          key={index}
+          key={Utils.generateString(10)}
           className={`toast-notification toast ${position}`}
           style={{ backgroundColor: toast.backgroundColor }}
         >

@@ -3,6 +3,7 @@ import ProtoctedRoute from '@pages/ProtoctedRoute';
 import { AuthTabs, ForgotPassword, ResetPassword } from '@pages/auth';
 import Error from '@pages/error/Error';
 import NotificationSkeleton from '@pages/social/notifications/NotificationSkeleton';
+import PhotoSkeleton from '@pages/social/photos/PhotoSkeleton';
 import StreamsSkeleton from '@pages/social/streams/StreamsSkeleton';
 import { Suspense, lazy } from 'react';
 import { useRoutes } from 'react-router-dom';
@@ -66,7 +67,7 @@ export const AppRouter = () => {
         {
           path: 'followers',
           element: (
-            <Suspense>
+            <Suspense fallback={<CardSkeleton />}>
               <Followers />
             </Suspense>
           )
@@ -74,7 +75,7 @@ export const AppRouter = () => {
         {
           path: 'following',
           element: (
-            <Suspense>
+            <Suspense fallback={<CardSkeleton />}>
               <Following />
             </Suspense>
           )
@@ -82,7 +83,7 @@ export const AppRouter = () => {
         {
           path: 'photos',
           element: (
-            <Suspense>
+            <Suspense fallback={<PhotoSkeleton />}>
               <Photos />
             </Suspense>
           )

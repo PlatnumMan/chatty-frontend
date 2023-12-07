@@ -112,7 +112,6 @@ export class PostUtils {
     const isPublic = post?.privacy === 'Public';
     const isFollower =
       post?.privacy === 'Followers' && Utils.checkIfUserIsFollowed(following, post?.userId, profile?._id);
-
     return isPrivate || isPublic || isFollower;
   }
 

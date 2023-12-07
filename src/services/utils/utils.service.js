@@ -1,7 +1,7 @@
 import { addNotification, clearNotification } from '@redux/reducers/notifications/notification.reducer';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 import { avatarColors } from '@services/utils/static.data';
-import { floor, random, some } from 'lodash';
+import { findIndex, floor, random, some } from 'lodash';
 import millify from 'millify';
 
 export class Utils {
@@ -131,5 +131,11 @@ export class Utils {
 
   static getImage(imageId, imageVersion) {
     return imageId && imageVersion ? this.appImageUrl(imageVersion, imageId) : '';
+  }
+
+  static removeUserFromList(list, userId) {
+    const index = findIndex(list, (id) => id === userId);
+    list.splice(index, 1);
+    return list;
   }
 }
