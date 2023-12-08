@@ -8,6 +8,7 @@ const useChatScrollToBottom = (prop) => {
       scrollRef.current.scrollTop = scrollRef.current?.scrollHeight - scrollRef.current?.clientHeight;
     }
   }, [prop]);
-};
 
+  return scrollRef;
+};
 export default useChatScrollToBottom;

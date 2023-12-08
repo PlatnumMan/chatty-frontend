@@ -1,3 +1,4 @@
+import chatReducer from '@redux/reducers/chat/chat.reducer';
 import modalReducer from '@redux/reducers/modal/modal.reducer';
 import notificationReducer from '@redux/reducers/notifications/notification.reducer';
 import postReducer from '@redux/reducers/post/post.reducer';
@@ -16,6 +17,7 @@ export const store = configureStore({
     modal: modalReducer,
     post: postReducer,
     allPosts: postsReducer,
-    userPostReactions: userPostReactionReducer
+    userPostReactions: userPostReactionReducer,
+    chat: chatReducer
   }
 });

@@ -17,13 +17,18 @@ import { NotificationUtils } from '@services/utils/notification-utils.service';
 import { ProfileUtils } from '@services/utils/profile-utils.service';
 import { Utils } from '@services/utils/utils.service';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 import HeaderSkeleton from './HeaderSkeleton';
 
 import '@components/header/Header.scss';
+import { getConversationList } from '@redux/api/chat';
+import { chatService } from '@services/api/chat/chat.service';
+import { ChatUtils } from '@services/utils/chat-utils.service';
+import { sumBy } from 'lodash';
 
 const Header = () => {
   const { profile } = useSelector((state) => state.user);
+  const { chatList } = useSelector((state) => state.chat);
   const [environment, setEnvironment] = useState('');
   const [settings, setSettings] = useState([]);
   const messageRef = useRef(null);
@@ -31,6 +36,7 @@ const Header = () => {
   const settingsRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const [isMessageActive, setIsMessageActive] = useDetectOutSideClick(messageRef, false);
   const [isNotificationActive, setIsNotificationActive] = useDetectOutSideClick(notificationRef, false);
   const [isSettingsActive, setIsSettingsActive] = useDetectOutSideClick(settingsRef, false);
@@ -40,6 +46,8 @@ const Header = () => {
   const [deleteSessionPageReload] = useSessionStorage('pageReload', 'delete');
   const [notifications, setNotifications] = useState([]);
   const [notificationCount, setNotificationCount] = useState(0);
+  const [messageCount, setMessageCount] = useState(0);
+  const [messageNotifications, setMessageNotifications] = useState([]);
   const [notificationDialogContent, setNotificationDialogContent] = useState({
     post: '',
     imgUrl: '',
@@ -81,7 +89,28 @@ const Header = () => {
     }
   };
 
-  const openChatPage = () => {};
+  const openChatPage = async (notification) => {
+    try {
+      const params = ChatUtils.chatUrlParams(notification, profile);
+      ChatUtils.joinRoomEvent(notification, profile);
+      ChatUtils.privateChatMessages = [];
+      const receiverId =
+        notification?.receiverUsername !== profile?.username ? notification?.receiverId : notification?.senderId;
+      if (notification?.receiverUsername === profile?.username && !notification?.isRead) {
+        await chatService.markMessagesAsRead(profile?._id, receiverId);
+      }
+      const userTwoName =
+        notification?.receiverUsername !== profile?.username
+          ? notification?.receiverUsername
+          : notification?.senderUsername;
+      await chatService.addChatUsers({ userOne: profile?.username, userTwo: userTwoName });
+      navigate(`/app/social/chat/messages?${createSearchParams(params)}`);
+      setIsMessageActive(false);
+      dispatch(getConversationList());
+    } catch (error) {
+      Utils.dispatchNotification(error?.response.data.message, 'error', dispatch);
+    }
+  };
 
   const onLogout = async () => {
     try {
@@ -102,11 +131,24 @@ const Header = () => {
   useEffect(() => {
     const env = Utils.appEnvironment();
     setEnvironment(env);
-  }, []);
+    const count = sumBy(chatList, (notification) => {
+      return !notification.isRead && notification.receiverUsername === profile?.username ? 1 : 0;
+    });
+    setMessageCount(count);
+    setMessageNotifications(chatList);
+  }, [chatList, profile]);
 
   useEffect(() => {
     NotificationUtils.socketIONotification(profile, notifications, setNotifications, 'header', setNotificationCount);
-  }, [notifications, profile]);
+    NotificationUtils.socketIOMessageNotification(
+      profile,
+      messageNotifications,
+      setMessageNotifications,
+      setMessageCount,
+      dispatch,
+      location
+    );
+  }, [notifications, profile, dispatch, location, messageNotifications]);
 
   return (
     <>
@@ -118,8 +160,8 @@ const Header = () => {
             <div ref={messageRef}>
               <MessageSidebar
                 profile={profile}
-                messageCount={0}
-                messageNotifications={[]}
+                messageCount={messageCount}
+                messageNotifications={messageNotifications}
                 openChatPage={openChatPage}
               />
             </div>
@@ -205,7 +247,7 @@ const Header = () => {
               >
                 <span className="header-list-name">
                   <FaRegEnvelope className="header-list-icon" />
-                  <span className="bg-danger-dots dots" data-testid="messages-dots"></span>
+                  {messageCount > 0 && <span className="bg-danger-dots dots" data-testid="messages-dots"></span>}
                 </span>
                 &nbsp;
               </li>

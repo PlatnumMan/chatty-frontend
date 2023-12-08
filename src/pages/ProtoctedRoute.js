@@ -1,6 +1,7 @@
 import useEffectOnce from '@hooks/useEffectOnce';
 import useLocalStorage from '@hooks/useLocalStorage';
 import useSessionStorage from '@hooks/useSessionStorage';
+import { getConversationList } from '@redux/api/chat';
 import { addUser } from '@redux/reducers/user/user.reducer';
 import { userService } from '@services/api/user/user.service';
 import { Utils } from '@services/utils/utils.service';
@@ -24,7 +25,7 @@ const ProtoctedRoute = ({ children }) => {
   const checkUser = useCallback(async () => {
     try {
       const response = await userService.checkCurrentUser();
-      // 1. dispatch conversation list
+      dispatch(getConversationList());
       setUserData(response.data.user);
       setTokenIsValid(true);
       dispatch(addUser({ token: response.data.token, profile: response.data.user }));
